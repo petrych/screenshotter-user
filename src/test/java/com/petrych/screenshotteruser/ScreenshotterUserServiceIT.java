@@ -1,5 +1,6 @@
 package com.petrych.screenshotteruser;
 
+import com.petrych.screenshotteruser.common.errorhandling.UserEntityNotFoundException;
 import com.petrych.screenshotteruser.persistence.model.ScreenshotterUser;
 import com.petrych.screenshotteruser.service.IUserService;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,7 +13,8 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.time.Duration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 @SpringBootTest
@@ -59,11 +61,11 @@ public class ScreenshotterUserServiceIT {
 	}
 	
 	@Test
-	public void givenUserNotExists_whenfindByName_thenNull() {
+	public void givenUserNotExists_whenfindByName_thenUserEntityNotFoundException() {
 		
-		ScreenshotterUser screenshotterUser = userService.findByUserName(USERNAME_NOT_EXISTS);
-		
-		assertNull(screenshotterUser);
+		assertThrows(UserEntityNotFoundException.class, () -> {
+			userService.findByUserName(USERNAME_NOT_EXISTS);
+		});
 	}
 	
 	
