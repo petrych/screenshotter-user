@@ -16,4 +16,4 @@ COPY --from=base /app/target/screenshotter-user-*.jar /screenshotter-user.jar
 
 EXPOSE 8081
 
-ENTRYPOINT ["java","-Dspring.profiles.active=local", "-jar", "/screenshotter-user.jar"]
+ENTRYPOINT ["java", "-jar", "/screenshotter-user.jar"]
